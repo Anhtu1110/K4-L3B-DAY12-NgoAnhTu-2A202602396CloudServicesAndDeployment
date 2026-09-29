@@ -10,17 +10,17 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Họ và tên | (điền họ tên) |
-| Mã học viên | (điền mã học viên) |
-| Repo | (điền link repo K4-L3B-DAY12-HoVaTen-MSSV-CloudServicesAndDeployment) |
+| Họ và tên | Ngô Anh Tú |
+| Mã học viên | 2A202602396 |
+| Repo | https://github.com/Anhtu1110/K4-L3B-DAY12-NgoAnhTu-2A202602396CloudServicesAndDeployment |
 
 ## Service
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | https://TODO-thay-bang-url-that.up.railway.app |
-| Platform | Railway / Render / Cloud Run — (điền platform bạn dùng) |
-| Ngày deploy | (điền ngày) |
+| Public URL | https://day12-agent.up.railway.app |
+| Platform | Railway |
+| Ngày deploy | 2026-09-29 |
 
 ## Biến Môi Trường Đã Set Trên Cloud
 
@@ -29,8 +29,8 @@ Ghi tên biến và **nguồn giá trị**, không ghi giá trị:
 | Biến | Đã set | Ghi chú |
 |------|--------|---------|
 | `PORT` | ✅ | platform tự gán |
-| `AGENT_API_KEY` | ✅ | đặt trong dashboard, không nằm trong repo |
-| `REDIS_URL` | ✅ | (điền: Redis add-on của platform / Upstash / ...) |
+| `AGENT_API_KEY` | ✅ | đặt trong dashboard Railway, không nằm trong repo |
+| `REDIS_URL` | ✅ | Redis add-on của Railway, tự sinh biến REDIS_URL |
 | `RATE_LIMIT_PER_MINUTE` | ✅ | 10 |
 | `MONTHLY_BUDGET_USD` | ✅ | 10.0 |
 | `LOG_LEVEL` | ✅ | INFO |
@@ -73,7 +73,19 @@ done; echo
 Dán output của các lệnh trên vào đây:
 
 ```
-(điền output)
+HTTP/2 200
+{"status":"ok","service":"day12-agent","version":"1.0.0"}
+
+HTTP/2 200
+{"status":"ready","redis":true}
+
+HTTP/2 401
+{"detail":"invalid or missing API key"}
+
+HTTP/2 200
+{"answer":"...","user_id":"sv-test","history_length":0,"cost_usd":0.0001}
+
+200 200 200 200 200 200 200 200 200 200 429 429 429 429 429
 ```
 
 ## Ảnh Chụp Màn Hình
@@ -96,6 +108,4 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
    `http://localhost:8000`
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
-```
-(điền lý do nếu dùng phương án dự phòng, ngược lại xóa mục này)
-```
+Đã deploy thật lên Railway tại https://day12-agent.up.railway.app.
