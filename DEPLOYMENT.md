@@ -18,7 +18,7 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | https://day12-agent.up.railway.app |
+| Public URL | https://agent-production-cb06.up.railway.app |
 | Platform | Railway |
 | Ngày deploy | 2026-09-29 |
 
@@ -109,3 +109,4 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
 Đã deploy thật lên Railway tại https://day12-agent.up.railway.app.
+
