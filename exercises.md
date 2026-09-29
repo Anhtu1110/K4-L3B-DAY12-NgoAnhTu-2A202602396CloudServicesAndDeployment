@@ -150,10 +150,10 @@ Ghi lại **một** lỗi bạn gặp khi deploy lên cloud (build fail, health 
 timeout, sai REDIS_URL, app không đọc `$PORT`...): thông báo lỗi là gì, bạn
 tìm ra nguyên nhân bằng cách nào, và sửa ra sao?
 
-> **Lỗi gặp phải**: Health check timeout sau khi deploy lên Railway — dashboard báo "Service unhealthy", log hiện `Connection refused`.
+> **Lỗi gặp phải**: Khi deploy lên Railway, lệnh `railway up` ban đầu chạy khi CLI đang liên kết với Redis service thay vì service agent, dẫn đến Redis service bị đè cấu hình và crash với lỗi `/bin/sh: 1: exec: docker-entrypoint.sh: not found`.
 >
-> **Thông báo lỗi**: `curl: (7) Failed to connect to 0.0.0.0 port 8000: Connection refused` trong health check log.
+> **Thông báo lỗi**: `Deploy crashed` và `/bin/sh: 1: exec: docker-entrypoint.sh: not found` trong log.
 >
-> **Nguyên nhân**: CMD trong Dockerfile ban đầu cố định cổng 8000 (`--port 8000`) thay vì đọc biến `$PORT`. Railway tự gán cổng khác (ví dụ 3000) qua biến môi trường `PORT`, nhưng uvicorn lắng nghe ở 8000 — không ai gọi vào được.
+> **Nguyên nhân**: Railway project có nhiều resource (agent service và Redis database). Khi chưa tách service hoặc link nhầm service, lệnh up sẽ deploy nhầm target.
 >
-> **Cách sửa**: Đổi CMD thành `CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]`. Shell form (`sh -c`) cần thiết để biến `${PORT:-8000}` được expand, exec form JSON array không expand shell variable. Sau khi push commit này, Railway rebuild và health check pass.
+> **Cách sửa**: Tạo service `agent` riêng (`railway add --service agent`), chuyển target sang `agent` (`railway service agent`), cấu hình đầy đủ biến môi trường và REDIS_URL từ Redis service (`railway variables`), sau đó sinh domain và chạy `railway up`.
